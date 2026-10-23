@@ -288,14 +288,17 @@
         </div>
     </div>
 
-    <!-- Floating Audio Control -->
-    <button id="musicBtn" onclick="toggleMusic()" class="fixed bottom-4 right-4 z-50 bg-[#18090E]/95 text-[#D8B779] border border-[#D8B779] px-4 py-2.5 rounded-full text-xs font-bold shadow-2xl flex items-center gap-2 hover:scale-105 transition-all">
-        <span id="musicIcon" class="text-sm">🎵</span>
-        <span id="musicText">Phát Nhạc</span>
-    </button>
+    
+<!-- Nút điều khiển nhạc -->
+<button id="musicBtn"
+    onclick="toggleMusic()"
+    class="fixed bottom-4 right-4 z-50 bg-[#18090E]/95 text-[#D8B779] border border-[#D8B779] px-4 py-2.5 rounded-full text-xs font-bold shadow-2xl flex items-center gap-2">
+    <span id="musicIcon">🎵</span>
+    <span id="musicText">Phát Nhạc</span>
+</button>
 
-    <!-- Audio Nhạc Last Christmas -->
-   <audio id="bgMusic" loop preload="auto">
+<!-- File nhạc phải nằm cùng thư mục với index.html -->
+<audio id="bgMusic" loop preload="auto">
     <source src="./LastChristmas.mp3" type="audio/mpeg">
 </audio>
 
