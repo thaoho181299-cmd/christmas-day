@@ -440,26 +440,50 @@
     </div>
 
     <script>
-        // --- 1. Audio Control (Tự động phát nhạc khi bấm quả cầu) ---
-        let isPlaying = false;
-        const bgMusic = document.getElementById('bgMusic');
-        const musicIcon = document.getElementById('musicIcon');
-        const musicText = document.getElementById('musicText');
+let isPlaying = false;
 
-        function toggleMusic() {
-            if (isPlaying) {
-                bgMusic.pause();
-                musicIcon.innerText = "🎵";
-                musicText.innerText = "Phát Nhạc";
-                isPlaying = false;
-            } else {
-                bgMusic.play().then(() => {
-                    musicIcon.innerText = "🎶";
-                    musicText.innerText = "Tắt Nhạc";
-                    isPlaying = true;
-                }).catch(err => { console.log("Audio play prevented:", err); });
-            }
-        }
+const bgMusic = document.getElementById('bgMusic');
+const musicIcon = document.getElementById('musicIcon');
+const musicText = document.getElementById('musicText');
+
+async function toggleMusic() {
+    if (isPlaying) {
+        bgMusic.pause();
+        isPlaying = false;
+        musicIcon.innerText = "🎵";
+        musicText.innerText = "Phát Nhạc";
+        return;
+    }
+
+    try {
+        bgMusic.volume = 1;
+        await bgMusic.play();
+
+        isPlaying = true;
+        musicIcon.innerText = "🎶";
+        musicText.innerText = "Tắt Nhạc";
+    } catch (error) {
+        console.error("Lỗi phát nhạc:", error);
+
+        alert(
+            "Không phát được nhạc! Hãy kiểm tra file LastChristmas.mp3 " +
+            "trong GitHub có đúng tên và nằm cùng thư mục với index.html không."
+        );
+    }
+}
+
+// Nếu nhạc bị dừng hoặc kết thúc trạng thái phát
+bgMusic.addEventListener('pause', () => {
+    isPlaying = false;
+    musicIcon.innerText = "🎵";
+    musicText.innerText = "Phát Nhạc";
+});
+
+bgMusic.addEventListener('play', () => {
+    isPlaying = true;
+    musicIcon.innerText = "🎶";
+    musicText.innerText = "Tắt Nhạc";
+});
 
         // --- 2. CANVAS PARTICLES (Đã tối ưu hóa chống lag) ---
         const canvas = document.getElementById('particleCanvas');
